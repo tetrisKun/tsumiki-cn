@@ -24,13 +24,11 @@
     "name": "classmethod"
   },
   "scripts": {
-    "check": "biome check src",
-    "fix": "biome check src --write",
     "prepare": "simple-git-hooks",
     "secretlint": "secretlint --secretlintignore .gitignore **/*"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm secretlint && pnpm fix"
+    "pre-commit": "pnpm secretlint"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.3",

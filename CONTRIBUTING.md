@@ -52,12 +52,6 @@ git checkout -b feature/your-feature-name
 3. コード品質チェックを実行します：
 
 ```bash
-# コードチェック
-pnpm check
-
-# 自動修正
-pnpm fix
-
 # 機密情報チェック
 pnpm secretlint
 ```
@@ -95,18 +89,14 @@ docs: update README with new command examples
 Pre-commitフックで以下が自動実行されます：
 
 - **secretlint**: 機密情報（APIキー、パスワードなど）の混入チェック
-- **fix**: Biomeによるコードの自動修正
 
 ### 手動チェック
 
 変更前に以下のコマンドを実行してください：
 
 ```bash
-# 全てのチェックを実行
-pnpm check && pnpm secretlint
-
-# コードの自動修正
-pnpm fix
+# 機密情報チェック
+pnpm secretlint
 ```
 
 ## プロジェクト構造

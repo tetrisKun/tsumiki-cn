@@ -18,8 +18,6 @@ TsumikiはAI駆動開発フレームワークです。Claude Code Plugin経由�
 pnpm install                # 依存関係のインストール
 
 # コード品質
-pnpm check                  # Biomeでコードチェック（commands/とagents/）
-pnpm fix                    # Biomeで自動修正
 pnpm secretlint             # シークレット情報の検査
 
 # pre-commitフック
@@ -35,7 +33,6 @@ pnpm prepare                # simple-git-hooksのセットアップ
 
 ## 技術スタック
 
-- **Code Quality**: Biome（リンタ・フォーマッタ）
 - **Security**: secretlint（機密情報検査）
 - **Package Manager**: pnpm
 - **Distribution**: Claude Code Plugin Marketplace
@@ -58,6 +55,5 @@ Claude Code Pluginが自動的に：
 
 Pre-commitフックで以下が自動実行されます：
 - `pnpm secretlint`: 機密情報のチェック
-- `pnpm fix`: コードの自動修正
 
-コマンドファイル（`.md`）やエージェント定義（`.md`）を修正する際は、必ず`pnpm check`を実行してからコミットしてください。
+コマンドファイル（`.md`）やエージェント定義（`.md`）を修正する際は、機密情報が含まれていないことを確認してからコミットしてください。
