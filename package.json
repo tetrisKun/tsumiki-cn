@@ -24,8 +24,8 @@
     "name": "classmethod"
   },
   "scripts": {
-    "check": "biome check commands agents",
-    "fix": "biome check commands agents --write",
+    "check": "biome check src",
+    "fix": "biome check src --write",
     "prepare": "simple-git-hooks",
     "secretlint": "secretlint --secretlintignore .gitignore **/*"
   },
