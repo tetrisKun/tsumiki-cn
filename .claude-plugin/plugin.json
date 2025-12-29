@@ -1,7 +1,7 @@
 {
-  "name": "tsumiki",
+  "name": "tsumiki-cn",
   "version": "0.0.7",
-  "description": "AI-driven development toolkit for TDD and SDD workflows, providing comprehensive command templates and agents to enhance developer productivity with Claude Code",
+  "description": "基于 AI 的开发工具包，用于 TDD 和 SDD 工作流程，提供全面的命令模板和代理，以提升开发者的生产力，配合 Claude Code 使用",
   "author": {
     "name": "makoto kuroeda",
     "email": "kuroeda.makoto@classmethod.jp"
