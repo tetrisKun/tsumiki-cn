@@ -11,9 +11,9 @@ new_version_with_v_prefix = get_version_with_v_prefix($ARGUMENTS) # 例: v1.0.0
 6. 由于 `package.json` 被更改，因此执行 `git commit` 和 `git push`。
 7. 执行 `gh pr create` 和 `gh pr merge`，将发布分支合并到主分支。
 8. 比较前一个版本标签和当前提交之间的代码更改，以准备发布说明。
-  - 用英语撰写。
+  - 用中文撰写。
 - 不包含机密信息。
-  - 需要 `What's Changed`、`Contributors`、`Full Changelog` 部分。
+  - 需要 `变更了什么`、`贡献者`、`变更列表(Full Changelog)` 部分。
   - 将 `./tmp/release-notes.md` 用作发布说明。
 9. 作为预防措施，确认发布内容中不包含应保密的信息。
 10. 使用命令 `gh release create {new_version_with_v_prefix} --title {new_version_with_v_prefix} --notes-file ./tmp/release-notes.md ...` 在 `github.com/classmethod/tsumiki` 仓库中将标题和标签都设置为 new_version_with_v_prefix，并使用步骤 4 的内容作为说明来创建发布。
