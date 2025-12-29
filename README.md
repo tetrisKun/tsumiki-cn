@@ -1,86 +1,86 @@
-# Tsumiki - AI駆動開発支援フレームワーク
+# Tsumiki - AI 驱动开发支持框架
 
-TsumikiはAI駆動開発のためのフレームワークです。要件定義から実装まで、AIを活用した効率的な開発プロセスを提供します。
+Tsumiki 是一个用于 AI 驱动开发的框架。提供从需求定义到实现,利用 AI 的高效开发流程。
 
-基本的にClaude Codeをサポートしますが、それ以外のツールでも使用できます。[Claude Code以外のツールでtsumikiを使用する](#claude-code以外のツールでtsumikiを使用する) を参照してください。
+基本上支持 Claude Code,但也可以与其他工具一起使用。请参考 [在 Claude Code 以外的工具中使用 tsumiki](#在-claude-code-以外的工具中使用-tsumiki)。
 
-## インストール
+## 安装
 
-Tsumikiを使用するには、次のClaude Code Pluginコマンドでインストールしてください：
+要使用 Tsumiki,请使用以下 Claude Code Plugin 命令安装:
 
 ```bash
 /plugin marketplace add https://github.com/classmethod/tsumiki.git
-/plugin install tsumiki@tsumiki 
+/plugin install tsumiki@tsumiki
 ```
 
-このコマンドを実行すると、TsumikiのClaude Codeスラッシュコマンドとエージェントが自動的にインストールされます。
+执行此命令后,Tsumiki 的 Claude Code 斜杠命令和代理将自动安装。
 
-**注意**: コマンドは `/tsumiki:` プレフィックス付きで実行します（例：`/tsumiki:kairo-requirements`）。
+**注意**: 命令使用 `/tsumiki:` 前缀执行(例: `/tsumiki:kairo-requirements`)。
 
-## 概要
+## 概述
 
-Tsumikiは以下の2つのコマンドで構成されています：
+Tsumiki 由以下 2 个命令组成:
 
-- **kairo** - 要件定義から実装までの包括的な開発フロー
-- **tdd** - テスト駆動開発（TDD）の個別実行
+- **kairo** - 从需求定义到实现的综合开发流程
+- **tdd** - 测试驱动开发(TDD)的单独执行
 
-### Kairoコマンド
+### Kairo 命令
 
-Kairoは要件定義から実装までの開発プロセスを自動化・支援します。以下の開発フローを支援します：
+Kairo 自动化·支持从需求定义到实现的开发流程。支持以下开发流程:
 
-1. **要件定義** - 概要から詳細な要件定義書を生成
-2. **設計** - 技術設計文書を自動生成
-3. **タスク分割** - 実装タスクを適切に分割・順序付け
-4. **TDD実装** - テスト駆動開発による品質の高い実装
+1. **需求定义** - 从概要生成详细的需求定义书
+2. **设计** - 自动生成技术设计文档
+3. **任务分割** - 适当分割·排序实现任务
+4. **TDD 实现** - 通过测试驱动开发实现高质量
 
-## 利用可能なコマンド
+## 可用命令
 
-- `init-tech-stack` - 技術スタックの特定
+- `init-tech-stack` - 识别技术栈
 
-### Kairoコマンド（包括的開発フロー）
-- `kairo-requirements` - 要件定義
-- `kairo-design` - 設計文書生成
-- `kairo-tasks` - タスク分割
-- `kairo-implement` - 実装実行
+### Kairo 命令(综合开发流程)
+- `kairo-requirements` - 需求定义
+- `kairo-design` - 生成设计文档
+- `kairo-tasks` - 任务分割
+- `kairo-implement` - 执行实现
 
-### TDDコマンド（個別実行）
-- `tdd-requirements` - TDD要件定義
-- `tdd-testcases` - テストケース作成
-- `tdd-red` - テスト実装（Red）
-- `tdd-green` - 最小実装（Green）
-- `tdd-refactor` - リファクタリング
-- `tdd-verify-complete` - TDD完了確認
+### TDD 命令(单独执行)
+- `tdd-requirements` - TDD 需求定义
+- `tdd-testcases` - 创建测试用例
+- `tdd-red` - 测试实现(Red)
+- `tdd-green` - 最小实现(Green)
+- `tdd-refactor` - 重构
+- `tdd-verify-complete` - TDD 完成确认
 
-### リバースエンジニアリングコマンド
-- `rev-tasks` - 既存コードからタスク一覧を逆生成
-- `rev-design` - 既存コードから設計文書を逆生成
-- `rev-specs` - 既存コードからテスト仕様書を逆生成
-- `rev-requirements` - 既存コードから要件定義書を逆生成
+### 逆向工程命令
+- `rev-tasks` - 从现有代码逆向生成任务列表
+- `rev-design` - 从现有代码逆向生成设计文档
+- `rev-specs` - 从现有代码逆向生成测试规范
+- `rev-requirements` - 从现有代码逆向生成需求定义书
 
-## クイックスタート
+## 快速开始
 
-**注意**: Claude Code Pluginでインストールした場合は、各コマンドの先頭に `tsumiki:` を付けてください（例：`/tsumiki:kairo-requirements`）。
+**注意**: 如果使用 Claude Code Plugin 安装,请在每个命令前添加 `tsumiki:`(例: `/tsumiki:kairo-requirements`)。
 
-### 包括的な開発フロー
+### 综合开发流程
 
 ```bash
-# 1. 技術スタック初期化
+# 1. 技术栈初始化
 /tsumiki:init-tech-stack
 
-# 2. 要件定義
+# 2. 需求定义
 /tsumiki:kairo-requirements
 
-# 3. 設計
+# 3. 设计
 /tsumiki:kairo-design
 
-# 4. タスク分割
+# 4. 任务分割
 /tsumiki:kairo-tasks
 
-# 5. 実装
+# 5. 实现
 /tsumiki:kairo-implement
 ```
 
-### 個別TDDプロセス
+### 单独 TDD 流程
 
 ```bash
 /tsumiki:tdd-requirements
@@ -91,27 +91,27 @@ Kairoは要件定義から実装までの開発プロセスを自動化・支援
 /tsumiki:tdd-verify-complete
 ```
 
-### リバースエンジニアリング
+### 逆向工程
 
 ```bash
-# 1. 既存コードからタスク構造を分析
+# 1. 从现有代码分析任务结构
 /tsumiki:rev-tasks
 
-# 2. 設計文書の逆生成（タスク分析後推奨）
+# 2. 逆向生成设计文档(建议在任务分析后执行)
 /tsumiki:rev-design
 
-# 3. テスト仕様書の逆生成（設計文書後推奨）
+# 3. 逆向生成测试规范(建议在设计文档后执行)
 /tsumiki:rev-specs
 
-# 4. 要件定義書の逆生成（全分析完了後推奨）
+# 4. 逆向生成需求定义书(建议在完成所有分析后执行)
 /tsumiki:rev-requirements
 ```
 
-## Claude Code以外のツールでtsumikiを使用する
+## 在 Claude Code 以外的工具中使用 tsumiki
 
-[rulesync](https://github.com/dyoshikawa/rulesync)を組み合わせて使用することで、Claude Code以外のツールでもtsumikiのコマンドを使用できます。
+通过结合使用 [rulesync](https://github.com/dyoshikawa/rulesync),也可以在 Claude Code 以外的工具中使用 tsumiki 命令。
 
-プロジェクトルートで以下のコマンドを実行します。
+在项目根目录执行以下命令。
 
 ```
 npx -y rulesync init
@@ -120,23 +120,23 @@ npx -y rulesync import \
   --targets claudecode \
   --features commands,subagents
 
-# Gemini CLIのカスタムスラッシュコマンドを出力する場合は以下のようになります。
-# （`--targets` には `claudecode`, `geminicli`, `roo` の指定が可能です）
+# 如果要输出 Gemini CLI 的自定义斜杠命令,如下所示。
+# (`--targets` 可以指定 `claudecode`, `geminicli`, `roo`)
 npx -y rulesync generate \
   --targets geminicli \
   --features commands
 
-# カスタムスラッシュコマンドの仕様が存在しない（または仕様的な制限のある）AIコーディングツールでも、 `--experimental-simulate-commands` フラグによりいくつかのツールではコマンドファイルを出力できます。
-# Cursorのカスタムスラッシュコマンドを出力する場合は以下のようになります。
-# （`--targets` には `cursor`, `copilot`, `codexcli` の指定が可能です）
+# 即使对于不存在自定义斜杠命令规范(或有规范限制)的 AI 编码工具,通过 `--experimental-simulate-commands` 标志,某些工具也可以输出命令文件。
+# 如果要输出 Cursor 的自定义斜杠命令,如下所示。
+# (`--targets` 可以指定 `cursor`, `copilot`, `codexcli`)
 npx -y rulesync generate \
   --targets cursor \
   --features commands
   --experimental-simulate-commands
 ```
 
-詳しくは[rulesync](https://github.com/dyoshikawa/rulesync)のREADMEを参照してください。
+详情请参考 [rulesync](https://github.com/dyoshikawa/rulesync) 的 README。
 
-## 詳細なマニュアル
+## 详细手册
 
-使用方法の詳細、ディレクトリ構造、ワークフロー例、トラブルシューティングについては [MANUAL.md](./MANUAL.md) を参照してください。
+有关使用方法的详细信息、目录结构、工作流示例、故障排除,请参考 [MANUAL.md](./MANUAL.md)。
