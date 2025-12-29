@@ -4,56 +4,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 概要
 
-TsumikiはAI駆動開発フレームワークです。Claude Code Plugin経由でインストールされ、要件定義から実装までのAI支援開発プロセスを提供します。
+Tsumiki 是一个 AI 驱动的开发框架。通过 Claude Code Plugin 安装,提供从需求定义到实现的 AI 辅助开发流程。
 
-このリポジトリには以下が含まれています：
-- **`commands/`**: Claude Codeスラッシュコマンド用のテンプレートファイル（`.md`と`.sh`）
-- **`agents/`**: Claude Codeエージェント用の定義ファイル（`.md`）
-- **`.claude-plugin/`**: Claude Code Plugin設定ファイル
+此仓库包含以下内容:
+- **`commands/`**: Claude Code 斜杠命令的模板文件(`.md` 和 `.sh`)
+- **`agents/`**: Claude Code 代理的定义文件(`.md`)
+- **`.claude-plugin/`**: Claude Code Plugin 配置文件
 
-## 開発コマンド
+## 开发命令
 
 ```bash
-# 開発環境
-pnpm install                # 依存関係のインストール
+# 开发环境
+pnpm install                # 安装依赖
 
-# コード品質
-pnpm secretlint             # シークレット情報の検査
+# 代码质量
+pnpm secretlint             # 检查敏感信息
 
-# pre-commitフック
-pnpm prepare                # simple-git-hooksのセットアップ
+# pre-commit 钩子
+pnpm prepare                # 设置 simple-git-hooks
 ```
 
-## プロジェクト構造
+## 项目结构
 
-- **`commands/`**: TsumikiのAI開発フレームワーク用Claude Codeコマンドテンプレート（`.md`と`.sh`ファイル）
-- **`agents/`**: Claude Codeエージェント定義（`.md`ファイル）
-- **`.claude-plugin/`**: Claude Code Plugin設定（marketplace.json, plugin.json）
-- **`book/`**: 開発ガイドとドキュメント
+- **`commands/`**: Tsumiki AI 开发框架的 Claude Code 命令模板(`.md` 和 `.sh` 文件)
+- **`agents/`**: Claude Code 代理定义(`.md` 文件)
+- **`.claude-plugin/`**: Claude Code Plugin 配置(marketplace.json, plugin.json)
+- **`book/`**: 开发指南和文档
 
-## 技術スタック
+## 技术栈
 
-- **Security**: secretlint（機密情報検査）
+- **Security**: secretlint(敏感信息检查)
 - **Package Manager**: pnpm
 - **Distribution**: Claude Code Plugin Marketplace
 
-## インストール方法
+## 安装方法
 
-ユーザーは以下のコマンドでTsumikiをインストールします：
+用户可以使用以下命令安装 Tsumiki:
 
 ```bash
 /plugin marketplace add https://github.com/classmethod/tsumiki.git
-/plugin install tsumiki@tsumiki 
+/plugin install tsumiki@tsumiki
 ```
 
-Claude Code Pluginが自動的に：
-1. リポジトリから`commands/`と`agents/`のファイルを読み込み
-2. `.claude-plugin/plugin.json`の設定に従ってコマンドとエージェントを登録
-3. `/tsumiki:` プレフィックス付きでコマンドを使用可能にする
+Claude Code Plugin 会自动:
+1. 从仓库加载 `commands/` 和 `agents/` 的文件
+2. 根据 `.claude-plugin/plugin.json` 的配置注册命令和代理
+3. 使命令可以使用 `/tsumiki:` 前缀
 
-## 品質管理
+## 质量管理
 
-Pre-commitフックで以下が自動実行されます：
-- `pnpm secretlint`: 機密情報のチェック
+Pre-commit 钩子会自动执行以下操作:
+- `pnpm secretlint`: 检查敏感信息
 
-コマンドファイル（`.md`）やエージェント定義（`.md`）を修正する際は、機密情報が含まれていないことを確認してからコミットしてください。
+修改命令文件(`.md`)或代理定义(`.md`)时,请在提交前确认不包含敏感信息。
