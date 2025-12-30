@@ -182,7 +182,7 @@ Refactor阶段文件=./docs/implements/{需求名称}/{{task_id}}/{feature_name}
   - 代码质量: 提升到适当水平
 
 - **显示下一步**: 不管判定结果如何,显示推荐的下一个命令
-  - "推荐的下一步: 使用 `/tsumiki:tdd-verify-complete` 执行完整性验证。"
+  - "推荐的下一步: 使用 `/jimu:tdd-verify-complete` 执行完整性验证。"
 
 # rules
 
