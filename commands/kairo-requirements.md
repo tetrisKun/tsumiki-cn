@@ -56,7 +56,7 @@ PRD文件={{prd_file_path}}
 - **读取任务笔记**
   - 如果`docs/spec/{需求名称}/note.md`存在则读取
   - 如果不存在:
-    - 使用Task工具执行subagent_type: "general-purpose"来运行`/tsumiki:kairo-tasknote {需求名称}`命令生成笔记
+    - 使用Task工具执行subagent_type: "general-purpose"来运行`/jimu:kairo-tasknote {需求名称}`命令生成笔记
     - 读取生成的笔记文件
   - 笔记包含技术栈、开发规则、相关实现、设计文档、注意事项
 
@@ -259,7 +259,7 @@ PRD文件={{prd_file_path}}
   - 确认各文件内的链接设置正确
   - 提示与现有设计书·实现的一致性确认信息
 
-- 显示下一步骤:"推荐的下一步骤:使用`/tsumiki:kairo-design {需求名称}`创建技术设计文档。"
+- 显示下一步骤:"推荐的下一步骤:使用`/jimu:kairo-design {需求名称}`创建技术设计文档。"
 
 # rules
 
