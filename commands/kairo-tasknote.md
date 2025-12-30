@@ -1,343 +1,343 @@
 ---
-description: Kairo開発のコンテキスト情報を収集してノートにまとめます。技術スタック、追加ルール、関連ファイルの情報を整理します。
+description: 收集Kairo开发的上下文信息并整理到笔记中。整理技术栈、附加规则、相关文件的信息。
 allowed-tools: Read, Glob, Grep, Task, Write, TodoWrite, Bash
-argument-hint: [要件名]
+argument-hint: [需求名称]
 ---
-Kairo開発の前にコンテキスト情報を収集し、開発に必要な情報をノートファイルにまとめます。
+在Kairo开发前收集上下文信息,将开发所需的信息整理到笔记文件中。
 
 # context
 
-出力ディレクトリ="docs/spec"
-要件名={{requirement_name}}
-収集情報=[]
+输出目录="docs/spec"
+需求名称={{requirement_name}}
+收集信息=[]
 
 # step
 
-- $ARGUMENTS がない場合、「引数に要件名を指定してください（例: ユーザー認証システム）」と言って終了する
-- $ARGUMENTS の内容と context の内容をまとめてユーザに宣言する
-- step2 を実行する
+- 如果没有$ARGUMENTS,显示"请在参数中指定需求名称(例:用户认证系统)"后结束
+- 向用户声明$ARGUMENTS的内容和context的内容
+- 执行step2
 
-## step2: 既存ノートの確認
+## step2: 确认现有笔记
 
-- `{{出力ディレクトリ}}/{要件名}/note.md` が既にある場合:
-  - 既存ファイルの内容を表示
-  - ユーザに確認: 「既存のノートファイルがあります。更新しますか？（y/n）」
-  - ユーザが「y」と回答した場合: step3 を実行
-  - ユーザが「n」と回答した場合: 終了する
-- 存在しない場合: step3 を実行する
+- 如果`{{出力ディレクトリ}}/{需求名称}/note.md`已存在:
+  - 显示现有文件的内容
+  - 向用户确认:"存在现有的笔记文件。是否更新?(y/n)"
+  - 如果用户回答"y": 执行step3
+  - 如果用户回答"n": 结束
+- 如果不存在: 执行step3
 
-## step3: 開発コンテキストの収集
+## step3: 收集开发上下文
 
-### Phase 1: プロジェクト基本情報の収集
+### Phase 1: 收集项目基本信息
 
-**追加ルールの読み込み**
-- `CLAUDE.md` ファイルが存在する場合は読み込み（技術スタック・制約）
-- `AGENTS.md` ファイルが存在する場合は読み込み
-- `README.md` が存在する場合は読み込み
-- `docs/rule` ディレクトリが存在する場合は読み込み
-- `docs/rule/kairo` ディレクトリが存在する場合は読み込み
-- 各ディレクトリ内のすべてのファイルを読み込み、追加ルールとして適用
+**读取附加规则**
+- 如果`CLAUDE.md`文件存在则读取(技术栈·约束)
+- 如果`AGENTS.md`文件存在则读取
+- 如果`README.md`存在则读取
+- 如果`docs/rule`目录存在则读取
+- 如果`docs/rule/kairo`目录存在则读取
+- 读取各目录内的所有文件,作为附加规则应用
 
-### Phase 2: 既存設計文書・仕様書の収集
+### Phase 2: 收集现有设计文档·规范书
 
-**既存の要件定義・設計書の検索**
-- `docs/spec/{要件名}-requirements.md`: 統合機能要件
-- `docs/spec/{要件名}-user-stories.md`: 詳細なユーザストーリー
-- `docs/spec/{要件名}-acceptance-criteria.md`: 受け入れ基準
-- `docs/spec/{要件名}-*.md`: その他関連ドキュメント
-- `docs/design/*.md`: 設計文書ディレクトリ
-- `docs/tech-stack.md`: 技術スタック
-- 見つかったファイルをすべて Read ツールで読み込み
+**搜索现有需求定义·设计书**
+- `docs/spec/{需求名称}-requirements.md`: 统一功能需求
+- `docs/spec/{需求名称}-user-stories.md`: 详细用户故事
+- `docs/spec/{需求名称}-acceptance-criteria.md`: 验收标准
+- `docs/spec/{需求名称}-*.md`: 其他相关文档
+- `docs/design/*.md`: 设计文档目录
+- `docs/tech-stack.md`: 技术栈
+- 用Read工具读取找到的所有文件
 
-### Phase 3: 既存実装の調査（オプション）
+### Phase 3: 调查现有实现(可选)
 
-- ユーザーに確認: 「既存コードベースの詳細分析が必要ですか？（y/n）」
-- 必要な場合のみ実行:
-  - **@task agent-symbol-searcher で実装関連情報を検索**
-    - 類似機能の実装例を検索
-    - ユーティリティ関数・共通モジュールを検索
-    - 実装パターンやアーキテクチャガイドラインを特定
-    - 依存関係やインポートパスを確認
-  - 見つかった関連ファイルを Read ツールで読み込み
+- 向用户确认:"是否需要详细分析现有代码库?(y/n)"
+- 仅在必要时执行:
+  - **使用@task agent-symbol-searcher搜索实现相关信息**
+    - 搜索类似功能的实现示例
+    - 搜索实用函数·共通模块
+    - 识别实现模式和架构指南
+    - 确认依赖关系和导入路径
+  - 用Read工具读取找到的相关文件
 
-### Phase 4: Git情報の収集
+### Phase 4: 收集Git信息
 
-- `git status` で現在の開発状況を確認
-- `git log --oneline -20` で最近のコミット履歴を確認
-- 既存のブランチ情報を確認
+- 用`git status`确认当前开发状况
+- 用`git log --oneline -20`确认最近的提交历史
+- 确认现有分支信息
 
-### Phase 5: プロジェクト構造の把握
+### Phase 5: 了解项目结构
 
-- ディレクトリ構造を把握（主要ディレクトリのみ）
-- 設定ファイルの確認（package.json, tsconfig.json等）
+- 了解目录结构(仅主要目录)
+- 确认配置文件(package.json, tsconfig.json等)
 
-- step4 を実行する
+- 执行step4
 
-## step4: 収集情報の整理と保存
+## step4: 整理和保存收集信息
 
-- 収集した情報を <note_template> の形式で整理
-- 以下の内容を含める:
-  1. **プロジェクト概要**
-  2. **技術スタック**
-  3. **開発ルール**
-  4. **既存の要件定義**
-  5. **既存の設計文書**
-  6. **関連実装**（オプション）
-  7. **技術的制約**
-  8. **注意事項**
+- 按<note_template>格式整理收集的信息
+- 包含以下内容:
+  1. **项目概要**
+  2. **技术栈**
+  3. **开发规则**
+  4. **现有需求定义**
+  5. **现有设计文档**
+  6. **相关实现**(可选)
+  7. **技术约束**
+  8. **注意事项**
 
-- Write ツールを使用して `{{出力ディレクトリ}}/{要件名}/note.md` に保存
-- step5 を実行する
+- 使用Write工具保存到`{{出力ディレクトリ}}/{需求名称}/note.md`
+- 执行step5
 
-## step5: 完了報告
+## step5: 完成报告
 
-- TodoWrite ツールで TODO ステータスを更新する
-  - 現在のTODOを「completed」にマーク
-  - コンテキスト収集フェーズの完了をTODO内容に反映
-  - 次のフェーズ「要件定義作成」をTODOに追加
+- 使用TodoWrite工具更新TODO状态
+  - 将当前TODO标记为"completed"
+  - 在TODO内容中反映上下文收集阶段的完成
+  - 在TODO中添加下一阶段"需求定义创建"
 
-- 完了報告を表示：
-  - 収集したファイルの一覧
-  - プロジェクトの概要サマリー
-  - 作成したノートファイルのパス
+- 显示完成报告:
+  - 收集的文件列表
+  - 项目概要摘要
+  - 创建的笔记文件路径
 
 # rules
 
-## ファイル名のルール
+## 文件名规则
 
-### 出力ファイルのパス形式
-- `docs/spec/{要件名}/note.md`
+### 输出文件路径格式
+- `docs/spec/{需求名称}/note.md`
 - 例: `docs/spec/user-auth-system/note.md`
 
-### ディレクトリ作成
-- `docs/spec/{要件名}/` ディレクトリが存在しない場合は自動作成
-- 必要に応じて親ディレクトリも作成
+### 创建目录
+- 如果`docs/spec/{需求名称}/`目录不存在则自动创建
+- 根据需要也创建父目录
 
-### ファイル名の命名規則
-- 要件名を簡潔な英語に変換する
-- ケバブケース（kebab-case）を使用
-- 最大50文字程度に収める
+### 文件名命名规则
+- 将需求名称转换为简洁的英语
+- 使用kebab-case(短横线分隔)
+- 控制在最多50字符左右
 - 例:
-  - "ユーザー認証システム" → "user-auth-system"
-  - "データエクスポート機能" → "data-export"
-  - "パスワードリセット" → "password-reset"
+  - "用户认证系统" → "user-auth-system"
+  - "数据导出功能" → "data-export"
+  - "密码重置" → "password-reset"
 
-## ファイルパスの記載ルール
+## 文件路径记载规则
 
-- **プロジェクトルートを基準とした相対パスを使用する**
-- フルパス（絶対パス）は記載しない
+- **使用基于项目根目录的相对路径**
+- 不记载完整路径(绝对路径)
 - 例:
   - ❌ `/Users/username/projects/myapp/src/utils/helper.ts`
   - ✅ `src/utils/helper.ts`
 
-## 情報収集の優先順位
+## 信息收集的优先级
 
-1. **必須**: CLAUDE.md, README.md, 既存の要件定義・設計書
-2. **推奨**: 追加ルール、設定ファイル、Git情報
-3. **オプション**: 既存実装の詳細分析
+1. **必需**: CLAUDE.md, README.md, 现有需求定义·设计书
+2. **推荐**: 附加规则、配置文件、Git信息
+3. **可选**: 现有实现的详细分析
 
-## TODO更新パターン
+## TODO更新模式
 
 ```
-- 現在のTODOを「completed」にマーク
-- コンテキスト収集フェーズの完了をTODO内容に反映
-- 次のフェーズ「要件定義作成」をTODOに追加
+- 将当前TODO标记为"completed"
+- 在TODO内容中反映上下文收集阶段的完成
+- 在TODO中添加下一阶段"需求定义创建"
 ```
 
 # info
 
 <note_template>
-# {要件名} 開発コンテキストノート
+# {需求名称} 开发上下文笔记
 
-## 作成日時
-{作成日時}
+## 创建日期时间
+{创建日期时间}
 
-## プロジェクト概要
+## 项目概要
 
-### プロジェクト名
-{プロジェクト名}
+### 项目名称
+{项目名称}
 
-### プロジェクトの目的
-{プロジェクトの目的・概要}
+### 项目的目的
+{项目的目的·概要}
 
-**参照元**: {README.md または CLAUDE.md のパス}
+**参照源**: {README.md 或 CLAUDE.md 的路径}
 
-## 技術スタック
+## 技术栈
 
-### 使用技術・フレームワーク
-- **言語**: {プログラミング言語}
-- **フレームワーク**: {使用フレームワーク}
-- **ランタイム**: {Node.js, Python等}
-- **パッケージマネージャー**: {npm, yarn, pip等}
+### 使用技术·框架
+- **语言**: {编程语言}
+- **框架**: {使用框架}
+- **运行时**: {Node.js, Python等}
+- **包管理器**: {npm, yarn, pip等}
 
-### アーキテクチャパターン
-- **アーキテクチャスタイル**: {MVC, クリーンアーキテクチャ, マイクロサービス等}
-- **設計パターン**: {使用している設計パターン}
-- **ディレクトリ構造**: {プロジェクトの構造}
+### 架构模式
+- **架构风格**: {MVC, 清洁架构, 微服务等}
+- **设计模式**: {使用的设计模式}
+- **目录结构**: {项目的结构}
 
-**参照元**:
+**参照源**:
 - [CLAUDE.md](CLAUDE.md)
 - [architecture.md](docs/design/architecture.md)
 
-## 開発ルール
+## 开发规则
 
-### プロジェクト固有のルール
-{プロジェクト固有の開発ルール}
+### 项目特有规则
+{项目特有的开发规则}
 
-### コーディング規約
-- **命名規則**: {命名規則の詳細}
-- **型チェック**: {TypeScript strict mode等}
-- **コメント**: {コメントのルール}
-- **フォーマット**: {Prettier, ESLint等の設定}
+### 编码规约
+- **命名规则**: {命名规则的详细信息}
+- **类型检查**: {TypeScript strict mode等}
+- **注释**: {注释规则}
+- **格式**: {Prettier, ESLint等的设置}
 
-### テスト要件
-- **テストフレームワーク**: {Jest, Pytest等}
-- **カバレッジ要件**: {最低カバレッジ率}
-- **テストパターン**: {AAA, Given-When-Then等}
+### 测试要求
+- **测试框架**: {Jest, Pytest等}
+- **覆盖率要求**: {最低覆盖率}
+- **测试模式**: {AAA, Given-When-Then等}
 
-**参照元**:
+**参照源**:
 - [AGENTS.md](AGENTS.md)
 - [docs/rule/](docs/rule/)
 - [docs/rule/kairo/](docs/rule/kairo/)
 
-## 既存の要件定義
+## 现有需求定义
 
-### 要件定義書
-{既存の要件定義の要約}
+### 需求定义书
+{现有需求定义的摘要}
 
-**参照元**:
-- [requirements.md](docs/spec/{要件名}-requirements.md)
-- [user-stories.md](docs/spec/{要件名}-user-stories.md)
-- [acceptance-criteria.md](docs/spec/{要件名}-acceptance-criteria.md)
+**参照源**:
+- [requirements.md](docs/spec/{需求名称}-requirements.md)
+- [user-stories.md](docs/spec/{需求名称}-user-stories.md)
+- [acceptance-criteria.md](docs/spec/{需求名称}-acceptance-criteria.md)
 
-### 主要な機能要件（EARS記法）
-- REQ-001: {要件の概要}
-- REQ-002: {要件の概要}
+### 主要功能需求(EARS记法)
+- REQ-001: {需求概要}
+- REQ-002: {需求概要}
 - ...
 
-### 主要な非機能要件
-- NFR-001: {パフォーマンス要件}
-- NFR-101: {セキュリティ要件}
+### 主要非功能需求
+- NFR-001: {性能需求}
+- NFR-101: {安全需求}
 - ...
 
-## 既存の設計文書
+## 现有设计文档
 
-### アーキテクチャ設計
-{アーキテクチャの要約}
+### 架构设计
+{架构摘要}
 
-**参照元**: [architecture.md](docs/design/architecture.md)
+**参照源**: [architecture.md](docs/design/architecture.md)
 
-### データフロー
-{データフローの要約}
+### 数据流
+{数据流摘要}
 
-**参照元**: [dataflow.md](docs/design/dataflow.md)
+**参照源**: [dataflow.md](docs/design/dataflow.md)
 
-### TypeScript型定義
-{主要な型定義の要約}
+### TypeScript类型定义
+{主要类型定义的摘要}
 
-**参照元**: [interfaces.ts](docs/design/interfaces.ts)
+**参照源**: [interfaces.ts](docs/design/interfaces.ts)
 
-### データベース設計
-{DBスキーマの要約}
+### 数据库设计
+{数据库模式摘要}
 
-**参照元**: [database-schema.sql](docs/design/database-schema.sql)
+**参照源**: [database-schema.sql](docs/design/database-schema.sql)
 
-### API仕様
-{APIエンドポイントの要約}
+### API规范
+{API端点摘要}
 
-**参照元**: [api-endpoints.md](docs/design/api-endpoints.md)
+**参照源**: [api-endpoints.md](docs/design/api-endpoints.md)
 
-## 関連実装
+## 相关实现
 
-### 類似機能の実装例
-{既存の類似実装の参照先}
+### 类似功能的实现示例
+{现有类似实现的参照}
 
-**参照元**:
-- [{ファイルパス1}]({ファイルパス1})
-- [{ファイルパス2}]({ファイルパス2})
+**参照源**:
+- [{文件路径1}]({文件路径1})
+- [{文件路径2}]({文件路径2})
 
-### 参考パターン
-{実装パターンの要約}
+### 参考模式
+{实现模式摘要}
 
-### 共通モジュール・ユーティリティ
-{使用可能な共通機能}
+### 共通模块·实用程序
+{可用的共通功能}
 
-**参照元**:
-- [{ユーティリティファイル1}]({ユーティリティファイル1})
-- [{ユーティリティファイル2}]({ユーティリティファイル2})
+**参照源**:
+- [{实用程序文件1}]({实用程序文件1})
+- [{实用程序文件2}]({实用程序文件2})
 
-### 依存関係・インポートパス
-{重要な依存関係の情報}
+### 依赖关系·导入路径
+{重要依赖关系的信息}
 
-## 技術的制約
+## 技术约束
 
-### パフォーマンス制約
-- {パフォーマンス要件の詳細}
+### 性能约束
+- {性能需求详细信息}
 
-### セキュリティ制約
-- {セキュリティ要件の詳細}
+### 安全约束
+- {安全需求详细信息}
 
-### 互換性制約
-- {ブラウザ互換性、バージョン制約等}
+### 兼容性约束
+- {浏览器兼容性、版本约束等}
 
-### データ制約
-- {データサイズ、形式等の制約}
+### 数据约束
+- {数据大小、格式等的约束}
 
-**参照元**: [CLAUDE.md](CLAUDE.md)
+**参照源**: [CLAUDE.md](CLAUDE.md)
 
-## 注意事項
+## 注意事项
 
-### 開発時の注意点
-- {開発時に注意すべき事項}
+### 开发时的注意点
+- {开发时应注意的事项}
 
-### デプロイ・運用時の注意点
-- {デプロイ・運用時の注意事項}
+### 部署·运营时的注意点
+- {部署·运营时的注意事项}
 
-### セキュリティ上の注意点
-- {セキュリティ関連の注意事項}
+### 安全方面的注意点
+- {安全相关注意事项}
 
-### パフォーマンス上の注意点
-- {パフォーマンス関連の注意事項}
+### 性能方面的注意点
+- {性能相关注意事项}
 
-## Git情報
+## Git信息
 
-### 現在のブランチ
-{現在のブランチ名}
+### 当前分支
+{当前分支名}
 
-### 最近のコミット
-{最近のコミット履歴（抜粋）}
+### 最近的提交
+{最近提交历史(摘录)}
 
-### 開発状況
-{現在の開発状況のサマリー}
+### 开发状况
+{当前开发状况摘要}
 
-## 収集したファイル一覧
+## 收集的文件列表
 
-### プロジェクト基本情報
+### 项目基本信息
 - [CLAUDE.md](CLAUDE.md)
 - [README.md](README.md)
 - [AGENTS.md](AGENTS.md)
 
-### 追加ルール
+### 附加规则
 - [docs/rule/](docs/rule/)
 - [docs/rule/kairo/](docs/rule/kairo/)
 
-### 要件定義・仕様書
-- [docs/spec/{要件名}-requirements.md](docs/spec/{要件名}-requirements.md)
-- [docs/spec/{要件名}-user-stories.md](docs/spec/{要件名}-user-stories.md)
-- [docs/spec/{要件名}-acceptance-criteria.md](docs/spec/{要件名}-acceptance-criteria.md)
+### 需求定义·规范书
+- [docs/spec/{需求名称}-requirements.md](docs/spec/{需求名称}-requirements.md)
+- [docs/spec/{需求名称}-user-stories.md](docs/spec/{需求名称}-user-stories.md)
+- [docs/spec/{需求名称}-acceptance-criteria.md](docs/spec/{需求名称}-acceptance-criteria.md)
 
-### 設計文書
+### 设计文档
 - [docs/design/architecture.md](docs/design/architecture.md)
 - [docs/design/dataflow.md](docs/design/dataflow.md)
 - [docs/design/interfaces.ts](docs/design/interfaces.ts)
 - [docs/design/database-schema.sql](docs/design/database-schema.sql)
 - [docs/design/api-endpoints.md](docs/design/api-endpoints.md)
 
-### 関連実装（オプション）
-- [{実装ファイル1}]({実装ファイル1})
-- [{実装ファイル2}]({実装ファイル2})
+### 相关实现(可选)
+- [{实现文件1}]({实现文件1})
+- [{实现文件2}]({实现文件2})
 
 ---
 
-**注意**: すべてのファイルパスはプロジェクトルートからの相対パスで記載しています。
+**注意**: 所有文件路径都以项目根目录的相对路径记载。
 </note_template>

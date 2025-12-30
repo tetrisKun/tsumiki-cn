@@ -55,7 +55,7 @@ argument-hint: [需求名称]
 - **读取任务笔记**
   - 如果存在 `docs/spec/{需求名称}/note.md`,则读取
   - 如果不存在:
-    - 使用 Task 工具以 subagent_type: "general-purpose" 执行 `/tsumiki:kairo-tasknote {需求名称}` 命令生成笔记
+    - 使用 Task 工具以 subagent_type: "general-purpose" 执行 `/jimu:kairo-tasknote {需求名称}` 命令生成笔记
     - 读取生成的笔记文件
   - 笔记包含技术栈、开发规则、相关实现、设计文档、注意事项
 
@@ -273,7 +273,7 @@ argument-hint: [需求名称]
   - 确认每个文件内的链接设置正确
   - 促进确认与现有实现的一致性的消息
 
-- 显示下一步: "下一个推荐步骤: 使用 `/tsumiki:kairo-tasks {需求名称}` 实施任务分割。"
+- 显示下一步: "下一个推荐步骤: 使用 `/jimu:kairo-tasks {需求名称}` 实施任务分割。"
 
 # rules
 
