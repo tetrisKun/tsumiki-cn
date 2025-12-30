@@ -1,14 +1,14 @@
-# Tsumiki 手册
+# Jimu 手册
 
 ## 使用方法
 
 ### 设置
 
-使用 Claude Code Plugin 安装 Tsumiki:
+使用 Claude Code Plugin 安装 Jimu:
 
 ```bash
-/plugin marketplace add https://github.com/classmethod/tsumiki.git
-/plugin install tsumiki@tsumiki
+/plugin marketplace add https://github.com/tetrisKun/jimu.git
+/plugin install jimu@jimu
 ```
 
 **注意**: 命令使用 `/jimu:` 前缀执行(例: `/jimu:kairo-requirements`)。
@@ -303,15 +303,15 @@ Kairo 对每个任务内部使用 TDD 命令执行以下流程:
 
 ```mermaid
 flowchart TD
-    A[传达需求概要] --> B[tsumiki:kairo-requirements]
+    A[传达需求概要] --> B[jimu:kairo-requirements]
     B --> C{确认需求}
     C -->|需要修改| B
-    C -->|OK| D[tsumiki:kairo-design]
+    C -->|OK| D[jimu:kairo-design]
     D --> E{确认设计}
     E -->|需要修改| D
-    E -->|OK| F[tsumiki:kairo-tasks]
+    E -->|OK| F[jimu:kairo-tasks]
     F --> G{确认任务}
-    G -->|OK| H[tsumiki:kairo-implement]
+    G -->|OK| H[jimu:kairo-implement]
     H --> I{全部任务完成?}
     I -->|No| H
     I -->|Yes| J[项目完成]
