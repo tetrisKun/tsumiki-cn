@@ -339,7 +339,7 @@ Refactor阶段文件=./docs/implements/{需求名称}/{{task_id}}/{feature_name}
 🚀 达成了对需求定义的完全充实度。
 自动进入下一个TDD循环。
 
-推荐的下一步: 使用 `/tsumiki:tdd-cycle` 开始下一个TDD循环。
+推荐的下一步: 使用 `/jimu:tdd-cycle` 开始下一个TDD循环。
 </complete_output>
 
 <incomplete_output>
