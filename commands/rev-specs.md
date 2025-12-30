@@ -1,204 +1,204 @@
 ---
-description: 既存のコードベースから包括的なテストケースと仕様書を逆生成します。実装されたビジネスロジック、API動作、UI コンポーネントの動作を分析し、不足しているテストケースを特定・生成し、仕様書として文書化します。
+description: 从现有代码库逆向生成全面的测试用例和规格说明书。分析已实现的业务逻辑、API行为、UI组件行为,识别并生成缺失的测试用例,并将其文档化为规格说明书。
 ---
 
 # rev-specs
 
 ## 目的
 
-既存のコードベースから包括的なテストケースと仕様書を逆生成する。実装されたビジネスロジック、API動作、UI コンポーネントの動作を分析し、不足しているテストケースを特定・生成し、仕様書として文書化する。
+从现有代码库逆向生成全面的测试用例和规格说明书。分析已实现的业务逻辑、API行为、UI组件行为,识别并生成缺失的测试用例,并将其文档化为规格说明书。
 
 ## 前提条件
 
-- 分析対象のコードベースが存在する
-- `docs/reverse/` ディレクトリが存在する（なければ作成）
-- 可能であれば事前に `/tsumiki:rev-requirements`, `/tsumiki:rev-design` を実行済み
+- 存在待分析的代码库
+- 存在 `docs/reverse/` 目录(如果不存在则创建)
+- 如果可能,已执行 `/jimu:rev-requirements`、`/jimu:rev-design`
 
-## 実行内容
+## 执行内容
 
-1. **既存テストの分析**
-   - 単体テスト（Unit Test）の実装状況確認
-   - 統合テスト（Integration Test）の実装状況確認
-   - E2Eテスト（End-to-End Test）の実装状況確認
-   - テストカバレッジの測定
+1. **现有测试分析**
+   - 确认单元测试(Unit Test)实现情况
+   - 确认集成测试(Integration Test)实现情况
+   - 确认E2E测试(End-to-End Test)实现情况
+   - 测试覆盖率测量
 
-2. **実装コードからテストケースの逆生成**
-   - 関数・メソッドの引数・戻り値からのテストケース生成
-   - 条件分岐からの境界値テスト生成
-   - エラーハンドリングからの異常系テスト生成
-   - データベース操作からのデータテスト生成
+2. **从实现代码逆向生成测试用例**
+   - 从函数·方法的参数·返回值生成测试用例
+   - 从条件分支生成边界值测试
+   - 从错误处理生成异常系统测试
+   - 从数据库操作生成数据测试
 
-3. **API仕様からテストケースの生成**
-   - 各エンドポイントの正常系テスト
-   - 認証・認可テスト
-   - バリデーションエラーテスト
-   - HTTPステータスコードテスト
+3. **从API规格生成测试用例**
+   - 各端点的正常系统测试
+   - 认证·授权测试
+   - 验证错误测试
+   - HTTP状态码测试
 
-4. **UI コンポーネントからテストケースの生成**
-   - コンポーネントレンダリングテスト
-   - ユーザーインタラクションテスト
-   - 状態変更テスト
-   - プロパティ変更テスト
+4. **从UI组件生成测试用例**
+   - 组件渲染测试
+   - 用户交互测试
+   - 状态变更测试
+   - 属性变更测试
 
-5. **パフォーマンス・セキュリティテストケースの生成**
-   - 負荷テストシナリオ
-   - セキュリティ脆弱性テスト
-   - レスポンス時間テスト
+5. **生成性能·安全测试用例**
+   - 负载测试场景
+   - 安全漏洞测试
+   - 响应时间测试
 
-6. **テスト仕様書の生成**
-   - テスト計画書
-   - テストケース一覧
-   - テスト環境仕様
-   - テスト手順書
+6. **生成测试规格说明书**
+   - 测试计划书
+   - 测试用例列表
+   - 测试环境规格
+   - 测试程序书
 
-7. **ファイルの作成**
-   - `docs/reverse/{プロジェクト名}-test-specs.md` - テスト仕様書
-   - `docs/reverse/{プロジェクト名}-test-cases.md` - テストケース一覧
-   - `docs/reverse/tests/` - 生成されたテストコード
+7. **文件创建**
+   - `docs/reverse/{项目名}-test-specs.md` - 测试规格说明书
+   - `docs/reverse/{项目名}-test-cases.md` - 测试用例列表
+   - `docs/reverse/tests/` - 生成的测试代码
 
-## 出力フォーマット例
+## 输出格式示例
 
 ### test-specs.md
 
 ```markdown
-# {プロジェクト名} テスト仕様書（逆生成）
+# {项目名} 测试规格说明书(逆向生成)
 
 ## 分析概要
 
-**分析日時**: {実行日時}
-**対象コードベース**: {パス}
-**テストカバレッジ**: {現在のカバレッジ}%
-**生成テストケース数**: {生成数}個
-**実装推奨テスト数**: {推奨数}個
+**分析日期**: {执行日期}
+**目标代码库**: {路径}
+**测试覆盖率**: {当前覆盖率}%
+**生成测试用例数**: {生成数}个
+**推荐实现测试数**: {推荐数}个
 
-## 現在のテスト実装状況
+## 当前测试实现情况
 
-### テストフレームワーク
-- **単体テスト**: {Jest/Vitest/pytest等}
-- **統合テスト**: {Supertest/TestContainers等}
-- **E2Eテスト**: {Cypress/Playwright等}
-- **コードカバレッジ**: {istanbul/c8等}
+### 测试框架
+- **单元测试**: {Jest/Vitest/pytest等}
+- **集成测试**: {Supertest/TestContainers等}
+- **E2E测试**: {Cypress/Playwright等}
+- **代码覆盖率**: {istanbul/c8等}
 
-### テストカバレッジ詳細
+### 测试覆盖率详情
 
-| ファイル/ディレクトリ | 行カバレッジ | 分岐カバレッジ | 関数カバレッジ |
+| 文件/目录 | 行覆盖率 | 分支覆盖率 | 函数覆盖率 |
 |---------------------|-------------|-------------|-------------|
 | src/auth/ | 85% | 75% | 90% |
 | src/users/ | 60% | 45% | 70% |
 | src/components/ | 40% | 30% | 50% |
-| **全体** | **65%** | **55%** | **75%** |
+| **总计** | **65%** | **55%** | **75%** |
 
-### テストカテゴリ別実装状況
+### 测试类别实现情况
 
-#### 単体テスト
-- [x] **認証サービス**: auth.service.spec.ts
-- [x] **ユーザーサービス**: user.service.spec.ts
-- [ ] **データ変換ユーティリティ**: 未実装
-- [ ] **バリデーションヘルパー**: 未実装
+#### 单元测试
+- [x] **认证服务**: auth.service.spec.ts
+- [x] **用户服务**: user.service.spec.ts
+- [ ] **数据转换工具**: 未实现
+- [ ] **验证辅助器**: 未实现
 
-#### 統合テスト
-- [x] **認証API**: auth.controller.spec.ts
-- [ ] **ユーザー管理API**: 未実装
-- [ ] **データベース操作**: 未実装
+#### 集成测试
+- [x] **认证API**: auth.controller.spec.ts
+- [ ] **用户管理API**: 未实现
+- [ ] **数据库操作**: 未实现
 
-#### E2Eテスト
-- [ ] **ユーザーログインフロー**: 未実装
-- [ ] **データ操作フロー**: 未実装
-- [ ] **エラーハンドリング**: 未実装
+#### E2E测试
+- [ ] **用户登录流程**: 未实现
+- [ ] **数据操作流程**: 未实现
+- [ ] **错误处理**: 未实现
 
-## 生成されたテストケース
+## 生成的测试用例
 
-### API テストケース
+### API测试用例
 
-#### POST /auth/login - ログイン認証
+#### POST /auth/login - 登录认证
 
-**正常系テスト**
-```typescript
+**正常系统测试**
+\`\`\`typescript
 describe('POST /auth/login', () => {
-  it('有効な認証情報でログイン成功', async () => {
+  it('使用有效认证信息登录成功', async () => {
     const response = await request(app)
       .post('/auth/login')
       .send({
         email: 'test@example.com',
         password: 'password123'
       });
-    
+
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
     expect(response.body.data.token).toBeDefined();
     expect(response.body.data.user.email).toBe('test@example.com');
   });
 
-  it('JWTトークンが正しい形式で返される', async () => {
+  it('JWT令牌以正确格式返回', async () => {
     const response = await request(app)
       .post('/auth/login')
       .send(validCredentials);
-    
+
     const token = response.body.data.token;
     expect(token).toMatch(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/);
   });
 });
-```
+\`\`\`
 
-**異常系テスト**
-```typescript
-describe('POST /auth/login - 異常系', () => {
-  it('無効なメールアドレスでエラー', async () => {
+**异常系统测试**
+\`\`\`typescript
+describe('POST /auth/login - 异常系统', () => {
+  it('使用无效电子邮件地址时出错', async () => {
     const response = await request(app)
       .post('/auth/login')
       .send({
         email: 'invalid-email',
         password: 'password123'
       });
-    
+
     expect(response.status).toBe(400);
     expect(response.body.success).toBe(false);
     expect(response.body.error.code).toBe('VALIDATION_ERROR');
   });
 
-  it('存在しないユーザーでエラー', async () => {
+  it('不存在的用户时出错', async () => {
     const response = await request(app)
       .post('/auth/login')
       .send({
         email: 'nonexistent@example.com',
         password: 'password123'
       });
-    
+
     expect(response.status).toBe(401);
     expect(response.body.error.code).toBe('INVALID_CREDENTIALS');
   });
 
-  it('パスワード間違いでエラー', async () => {
+  it('密码错误时出错', async () => {
     const response = await request(app)
       .post('/auth/login')
       .send({
         email: 'test@example.com',
         password: 'wrongpassword'
       });
-    
+
     expect(response.status).toBe(401);
     expect(response.body.error.code).toBe('INVALID_CREDENTIALS');
   });
 });
-```
+\`\`\`
 
-**境界値テスト**
-```typescript
-describe('POST /auth/login - 境界値', () => {
-  it('最小文字数パスワードでテスト', async () => {
-    // 8文字（最小要件）
+**边界值测试**
+\`\`\`typescript
+describe('POST /auth/login - 边界值', () => {
+  it('使用最小字符数密码测试', async () => {
+    // 8个字符(最小要求)
     const response = await request(app)
       .post('/auth/login')
       .send({
         email: 'test@example.com',
         password: '12345678'
       });
-    
+
     expect(response.status).toBe(200);
   });
 
-  it('最大文字数メールアドレスでテスト', async () => {
-    // 255文字（最大要件）
+  it('使用最大字符数电子邮件地址测试', async () => {
+    // 255个字符(最大要求)
     const longEmail = 'a'.repeat(243) + '@example.com';
     const response = await request(app)
       .post('/auth/login')
@@ -206,75 +206,75 @@ describe('POST /auth/login - 境界値', () => {
         email: longEmail,
         password: 'password123'
       });
-    
+
     expect(response.status).toBe(400);
   });
 });
-```
+\`\`\`
 
-### UIコンポーネントテストケース
+### UI组件测试用例
 
-#### LoginForm コンポーネント
+#### LoginForm 组件
 
-**レンダリングテスト**
-```typescript
+**渲染测试**
+\`\`\`typescript
 import { render, screen } from '@testing-library/react';
 import { LoginForm } from './LoginForm';
 
 describe('LoginForm', () => {
-  it('必要な要素が表示される', () => {
+  it('显示必要元素', () => {
     render(<LoginForm onSubmit={jest.fn()} />);
-    
-    expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument();
-    expect(screen.getByLabelText('パスワード')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'ログイン' })).toBeInTheDocument();
+
+    expect(screen.getByLabelText('电子邮件地址')).toBeInTheDocument();
+    expect(screen.getByLabelText('密码')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '登录' })).toBeInTheDocument();
   });
 
-  it('初期状態でエラーメッセージが非表示', () => {
+  it('初始状态下错误消息隐藏', () => {
     render(<LoginForm onSubmit={jest.fn()} />);
-    
-    expect(screen.queryByText(/エラー/)).not.toBeInTheDocument();
+
+    expect(screen.queryByText(/错误/)).not.toBeInTheDocument();
   });
 });
-```
+\`\`\`
 
-**ユーザーインタラクションテスト**
-```typescript
+**用户交互测试**
+\`\`\`typescript
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-describe('LoginForm - ユーザーインタラクション', () => {
-  it('フォーム送信時にonSubmitが呼ばれる', async () => {
+describe('LoginForm - 用户交互', () => {
+  it('提交表单时调用onSubmit', async () => {
     const mockSubmit = jest.fn();
     render(<LoginForm onSubmit={mockSubmit} />);
-    
-    await userEvent.type(screen.getByLabelText('メールアドレス'), 'test@example.com');
-    await userEvent.type(screen.getByLabelText('パスワード'), 'password123');
-    await userEvent.click(screen.getByRole('button', { name: 'ログイン' }));
-    
+
+    await userEvent.type(screen.getByLabelText('电子邮件地址'), 'test@example.com');
+    await userEvent.type(screen.getByLabelText('密码'), 'password123');
+    await userEvent.click(screen.getByRole('button', { name: '登录' }));
+
     expect(mockSubmit).toHaveBeenCalledWith({
       email: 'test@example.com',
       password: 'password123'
     });
   });
 
-  it('バリデーションエラー時に送信されない', async () => {
+  it('验证错误时不提交', async () => {
     const mockSubmit = jest.fn();
     render(<LoginForm onSubmit={mockSubmit} />);
-    
-    await userEvent.click(screen.getByRole('button', { name: 'ログイン' }));
-    
+
+    await userEvent.click(screen.getByRole('button', { name: '登录' }));
+
     expect(mockSubmit).not.toHaveBeenCalled();
-    expect(screen.getByText('メールアドレスは必須です')).toBeInTheDocument();
+    expect(screen.getByText('电子邮件地址为必填项')).toBeInTheDocument();
   });
 });
-```
+\`\`\`
 
-### サービス層テストケース
+### 服务层测试用例
 
-#### AuthService 単体テスト
+#### AuthService 单元测试
 
-```typescript
+\`\`\`typescript
 import { AuthService } from './auth.service';
 import { UserRepository } from './user.repository';
 
@@ -290,13 +290,13 @@ describe('AuthService', () => {
   });
 
   describe('login', () => {
-    it('有効な認証情報でユーザー情報とトークンを返す', async () => {
+    it('使用有效认证信息返回用户信息和令牌', async () => {
       const mockUser = {
         id: '1',
         email: 'test@example.com',
         hashedPassword: 'hashed_password'
       };
-      
+
       mockUserRepository.findByEmail.mockResolvedValue(mockUser);
       jest.spyOn(authService, 'verifyPassword').mockResolvedValue(true);
       jest.spyOn(authService, 'generateToken').mockReturnValue('mock_token');
@@ -309,7 +309,7 @@ describe('AuthService', () => {
       });
     });
 
-    it('存在しないユーザーでエラーをスロー', async () => {
+    it('不存在的用户时抛出错误', async () => {
       mockUserRepository.findByEmail.mockResolvedValue(null);
 
       await expect(
@@ -318,15 +318,15 @@ describe('AuthService', () => {
     });
   });
 });
-```
+\`\`\`
 
-## パフォーマンステストケース
+## 性能测试用例
 
-### 負荷テスト
+### 负载测试
 
-```typescript
-describe('パフォーマンステスト', () => {
-  it('ログインAPI - 100同時接続テスト', async () => {
+\`\`\`typescript
+describe('性能测试', () => {
+  it('登录API - 100并发连接测试', async () => {
     const promises = Array.from({ length: 100 }, () =>
       request(app).post('/auth/login').send(validCredentials)
     );
@@ -335,17 +335,17 @@ describe('パフォーマンステスト', () => {
     const responses = await Promise.all(promises);
     const endTime = Date.now();
 
-    // 全てのリクエストが成功
+    // 所有请求成功
     responses.forEach(response => {
       expect(response.status).toBe(200);
     });
 
-    // 応答時間が5秒以内
+    // 响应时间在5秒以内
     expect(endTime - startTime).toBeLessThan(5000);
   });
 
-  it('データベース - 大量データ検索性能', async () => {
-    // 1000件のテストデータを作成
+  it('数据库 - 大量数据搜索性能', async () => {
+    // 创建1000条测试数据
     await createTestData(1000);
 
     const startTime = Date.now();
@@ -358,15 +358,15 @@ describe('パフォーマンステスト', () => {
     expect(endTime - startTime).toBeLessThan(1000); // 1秒以内
   });
 });
-```
+\`\`\`
 
-### セキュリティテスト
+### 安全测试
 
-```typescript
-describe('セキュリティテスト', () => {
-  it('SQLインジェクション対策', async () => {
+\`\`\`typescript
+describe('安全测试', () => {
+  it('SQL注入防护', async () => {
     const maliciousInput = "'; DROP TABLE users; --";
-    
+
     const response = await request(app)
       .post('/auth/login')
       .send({
@@ -374,19 +374,19 @@ describe('セキュリティテスト', () => {
         password: 'password'
       });
 
-    // システムが正常に動作し、データベースが破損していない
+    // 系统正常运行,数据库未损坏
     expect(response.status).toBe(400);
-    
-    // ユーザーテーブルが依然として存在することを確認
+
+    // 确认用户表仍然存在
     const usersResponse = await request(app)
       .get('/users')
       .set('Authorization', 'Bearer ' + validToken);
     expect(usersResponse.status).not.toBe(500);
   });
 
-  it('XSS対策', async () => {
+  it('XSS防护', async () => {
     const xssPayload = '<script>alert("XSS")</script>';
-    
+
     const response = await request(app)
       .post('/users')
       .set('Authorization', 'Bearer ' + validToken)
@@ -395,228 +395,228 @@ describe('セキュリティテスト', () => {
         email: 'test@example.com'
       });
 
-    // レスポンスでスクリプトがエスケープされている
+    // 响应中脚本已转义
     expect(response.body.data.name).not.toContain('<script>');
     expect(response.body.data.name).toContain('&lt;script&gt;');
   });
 });
-```
+\`\`\`
 
-## E2Eテストケース
+## E2E测试用例
 
-### Playwright/Cypress テストシナリオ
+### Playwright/Cypress 测试场景
 
-```typescript
-// ユーザーログインフロー E2Eテスト
-describe('ユーザーログインフロー', () => {
-  it('正常なログインからダッシュボード表示まで', async () => {
+\`\`\`typescript
+// 用户登录流程 E2E测试
+describe('用户登录流程', () => {
+  it('从正常登录到仪表盘显示', async () => {
     await page.goto('/login');
-    
-    // ログインフォーム入力
+
+    // 输入登录表单
     await page.fill('[data-testid="email-input"]', 'test@example.com');
     await page.fill('[data-testid="password-input"]', 'password123');
     await page.click('[data-testid="login-button"]');
-    
-    // ダッシュボードへリダイレクト
+
+    // 重定向到仪表盘
     await page.waitForURL('/dashboard');
-    
-    // ユーザー情報表示確認
-    await expect(page.locator('[data-testid="user-name"]')).toContainText('テストユーザー');
-    
-    // ログアウト機能確認
+
+    // 确认用户信息显示
+    await expect(page.locator('[data-testid="user-name"]')).toContainText('测试用户');
+
+    // 确认登出功能
     await page.click('[data-testid="logout-button"]');
     await page.waitForURL('/login');
   });
 
-  it('ログイン失敗時のエラー表示', async () => {
+  it('登录失败时的错误显示', async () => {
     await page.goto('/login');
-    
+
     await page.fill('[data-testid="email-input"]', 'wrong@example.com');
     await page.fill('[data-testid="password-input"]', 'wrongpassword');
     await page.click('[data-testid="login-button"]');
-    
-    // エラーメッセージ表示確認
+
+    // 确认错误消息显示
     await expect(page.locator('[data-testid="error-message"]'))
-      .toContainText('認証情報が正しくありません');
+      .toContainText('认证信息不正确');
   });
 });
-```
+\`\`\`
 
-## テスト環境設定
+## 测试环境设置
 
-### データベーステスト設定
+### 数据库测试设置
 
-```typescript
-// テスト用データベース設定
+\`\`\`typescript
+// 测试用数据库设置
 beforeAll(async () => {
-  // テスト用データベース接続
+  // 测试用数据库连接
   await setupTestDatabase();
-  
-  // マイグレーション実行
+
+  // 执行迁移
   await runMigrations();
 });
 
 beforeEach(async () => {
-  // 各テスト前にデータをクリーンアップ
+  // 每个测试前清理数据
   await cleanupDatabase();
-  
-  // 基本テストデータ投入
+
+  // 投入基本测试数据
   await seedTestData();
 });
 
 afterAll(async () => {
-  // テスト用データベース切断
+  // 断开测试用数据库连接
   await teardownTestDatabase();
 });
-```
+\`\`\`
 
-### モック設定
+### Mock设置
 
-```typescript
-// 外部サービスのモック
+\`\`\`typescript
+// 外部服务的Mock
 jest.mock('./email.service', () => ({
   EmailService: jest.fn().mockImplementation(() => ({
     sendEmail: jest.fn().mockResolvedValue(true)
   }))
 }));
 
-// 環境変数のモック
+// 环境变量的Mock
 process.env.JWT_SECRET = 'test-secret';
 process.env.NODE_ENV = 'test';
-```
+\`\`\`
 
-## 不足テストの優先順位
+## 缺失测试的优先级
 
-### 高優先度（即座に実装推奨）
-1. **E2Eテストスイート** - ユーザーフロー全体の動作保証
-2. **API統合テスト** - バックエンドAPI全体のテスト
-3. **セキュリティテスト** - 脆弱性対策の検証
+### 高优先级(建议立即实现)
+1. **E2E测试套件** - 保证整个用户流程的运行
+2. **API集成测试** - 测试整个后端API
+3. **安全测试** - 验证漏洞防护
 
-### 中優先度（次のスプリントで実装）
-1. **パフォーマンステスト** - 負荷・応答時間テスト
-2. **UIコンポーネントテスト** - フロントエンド動作保証
-3. **データベーステスト** - データ整合性テスト
+### 中优先级(在下个Sprint中实现)
+1. **性能测试** - 负载·响应时间测试
+2. **UI组件测试** - 保证前端运行
+3. **数据库测试** - 数据一致性测试
 
-### 低優先度（継続的改善として実装）
-1. **ブラウザ互換性テスト** - 複数ブラウザでの動作確認
-2. **アクセシビリティテスト** - a11y対応確認
-3. **国際化テスト** - 多言語対応確認
+### 低优先级(作为持续改进实现)
+1. **浏览器兼容性测试** - 在多个浏览器中确认运行
+2. **可访问性测试** - 确认a11y对应
+3. **国际化测试** - 确认多语言支持
 
 ```
 
 ### test-cases.md
 
 ```markdown
-# {プロジェクト名} テストケース一覧（逆生成）
+# {项目名} 测试用例列表(逆向生成)
 
-## テストケース概要
+## 测试用例概要
 
-| ID | テスト名 | カテゴリ | 優先度 | 実装状況 | 推定工数 |
+| ID | 测试名称 | 类别 | 优先级 | 实现状况 | 预估工时 |
 |----|----------|----------|--------|----------|----------|
-| TC-001 | ログイン正常系 | API | 高 | ✅ | 2h |
-| TC-002 | ログイン異常系 | API | 高 | ✅ | 3h |
-| TC-003 | E2Eログインフロー | E2E | 高 | ❌ | 4h |
-| TC-004 | パフォーマンス負荷テスト | パフォーマンス | 中 | ❌ | 6h |
+| TC-001 | 登录正常系统 | API | 高 | ✅ | 2h |
+| TC-002 | 登录异常系统 | API | 高 | ✅ | 3h |
+| TC-003 | E2E登录流程 | E2E | 高 | ❌ | 4h |
+| TC-004 | 性能负载测试 | 性能 | 中 | ❌ | 6h |
 
-## 詳細テストケース
+## 详细测试用例
 
-### TC-001: ログインAPI正常系テスト
+### TC-001: 登录API正常系统测试
 
-**テスト目的**: 有効な認証情報でのログイン機能を検証
+**测试目的**: 验证使用有效认证信息的登录功能
 
-**事前条件**:
-- テストユーザーがデータベースに存在する
-- パスワードが正しくハッシュ化されている
+**前提条件**:
+- 测试用户存在于数据库中
+- 密码已正确哈希
 
-**テスト手順**:
-1. POST /auth/login にリクエスト送信
-2. 有効なemail, passwordを含むJSONを送信
-3. レスポンスを確認
+**测试步骤**:
+1. 向 POST /auth/login 发送请求
+2. 发送包含有效email、password的JSON
+3. 确认响应
 
-**期待結果**:
-- HTTPステータス: 200
+**期望结果**:
+- HTTP状态: 200
 - success: true
-- data.token: JWT形式のトークン
-- data.user: ユーザー情報
+- data.token: JWT格式的令牌
+- data.user: 用户信息
 
-**実装ファイル**: `auth.controller.spec.ts`
+**实现文件**: `auth.controller.spec.ts`
 
-### TC-002: ログインAPI異常系テスト
+### TC-002: 登录API异常系统测试
 
-**テスト目的**: 無効な認証情報での適切なエラーハンドリングを検証
+**测试目的**: 验证使用无效认证信息时的适当错误处理
 
-**テストケース**:
-1. 存在しないメールアドレス
-2. 無効なパスワード
-3. 不正なメール形式
-4. 空文字・null値
-5. SQLインジェクション攻撃
+**测试用例**:
+1. 不存在的电子邮件地址
+2. 无效密码
+3. 不正确的电子邮件格式
+4. 空字符·null值
+5. SQL注入攻击
 
-**期待結果**:
-- 適切なHTTPステータスコード
-- 統一されたエラーレスポンス形式
-- セキュリティ脆弱性がない
+**期望结果**:
+- 适当的HTTP状态码
+- 统一的错误响应格式
+- 无安全漏洞
 
-**実装状況**: ✅ 部分的実装
-
-```
-
-## テストコード生成アルゴリズム
-
-### 1. 静的解析によるテストケース抽出
+**实现状况**: ✅ 部分实现
 
 ```
-1. 関数シグネチャ解析 → 引数・戻り値のテストケース
-2. 条件分岐解析 → 分岐網羅テストケース
-3. 例外処理解析 → 異常系テストケース
-4. データベースアクセス解析 → データテストケース
-```
 
-### 2. 動的解析によるテスト生成
+## 测试代码生成算法
+
+### 1. 通过静态分析提取测试用例
 
 ```
-1. API呼び出しログ → 実際の使用パターンテスト
-2. ユーザー操作ログ → E2Eテストシナリオ
-3. パフォーマンスログ → 負荷テストシナリオ
+1. 函数签名分析 → 参数·返回值的测试用例
+2. 条件分支分析 → 分支覆盖测试用例
+3. 异常处理分析 → 异常系统测试用例
+4. 数据库访问分析 → 数据测试用例
 ```
 
-### 3. テストカバレッジギャップ分析
+### 2. 通过动态分析生成测试
 
 ```
-1. 現在のカバレッジ測定
-2. 未テスト行・分岐の特定
-3. クリティカルパスの特定
-4. リスクベース優先順位付け
+1. API调用日志 → 实际使用模式测试
+2. 用户操作日志 → E2E测试场景
+3. 性能日志 → 负载测试场景
 ```
 
-## 実行コマンド例
+### 3. 测试覆盖率差距分析
+
+```
+1. 测量当前覆盖率
+2. 识别未测试的行·分支
+3. 识别关键路径
+4. 基于风险的优先级排序
+```
+
+## 执行命令示例
 
 ```bash
-# フル分析（全テストケース生成）
+# 完整分析(生成所有测试用例)
 claude code rev-specs
 
-# 特定のテストカテゴリのみ生成
+# 仅生成特定测试类别
 claude code rev-specs --type unit
 claude code rev-specs --type integration
 claude code rev-specs --type e2e
 
-# 特定のファイル/ディレクトリを対象
+# 针对特定文件/目录
 claude code rev-specs --path ./src/auth
 
-# テストコードの実際の生成と出力
+# 实际生成和输出测试代码
 claude code rev-specs --generate-code
 
-# カバレッジレポートと合わせて分析
+# 结合覆盖率报告分析
 claude code rev-specs --with-coverage
 
-# 優先度フィルタリング
+# 优先级过滤
 claude code rev-specs --priority high
 ```
 
-## 実行後の確認
+## 执行后确认
 
-- 現在のテストカバレッジと不足部分の詳細レポート表示
-- 生成されたテストケース数と推定実装工数を表示
-- 優先順位付けされた実装推奨リストを提示
-- テスト環境の設定要件と推奨ツールを提案
-- CI/CD パイプラインへの統合案を提示 
+- 显示当前测试覆盖率和缺失部分的详细报告
+- 显示生成的测试用例数和预估实现工时
+- 提示按优先级排序的实现推荐列表
+- 建议测试环境的设置要求和推荐工具
+- 提示集成到CI/CD流水线的方案
