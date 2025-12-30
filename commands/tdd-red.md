@@ -56,7 +56,7 @@ Red阶段文件=./docs/implements/{需求名称}/{{task_id}}/{feature_name}-red-
 **4. 读取任务笔记**
 - 如果在现有文档确认中尚未读取 `./docs/implements/{需求名称}/{{task_id}}/note.md`
 - 如果不存在:
-  - 使用 @task 执行 `/tsumiki:tdd-tasknote {需求名称} {{task_id}}` 命令生成笔记
+  - 使用 @task 执行 `/jimu:tdd-tasknote {需求名称} {{task_id}}` 命令生成笔记
   - 读取生成的笔记文件
 - 笔记包含技术栈、开发规则、相关实现、设计文档、注意事项
 
@@ -125,7 +125,7 @@ Red阶段文件=./docs/implements/{需求名称}/{{task_id}}/{feature_name}-red-
   - 在TODO内容中记录质量判定结果
   - 将下一阶段"Green阶段(最小实现)"添加到TODO
 
-- 显示下一步: "推荐的下一步: 使用 `/tsumiki:tdd-green` 开始Green阶段(最小实现)。"
+- 显示下一步: "推荐的下一步: 使用 `/jimu:tdd-green` 开始Green阶段(最小实现)。"
 
 # rules
 
