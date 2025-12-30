@@ -26,7 +26,7 @@ pnpm prepare                # 设置 simple-git-hooks
 
 ## 项目结构
 
-- **`commands/`**: Tsumiki AI 开发框架的 Claude Code 命令模板(`.md` 和 `.sh` 文件)
+- **`commands/`**: Jimu AI 开发框架的 Claude Code 命令模板(`.md` 和 `.sh` 文件)
 - **`agents/`**: Claude Code 代理定义(`.md` 文件)
 - **`.claude-plugin/`**: Claude Code Plugin 配置(marketplace.json, plugin.json)
 - **`book/`**: 开发指南和文档
