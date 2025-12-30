@@ -16,5 +16,5 @@ new_version_with_v_prefix = get_version_with_v_prefix($ARGUMENTS) # 例: v1.0.0
   - 需要 `变更了什么`、`贡献者`、`变更列表(Full Changelog)` 部分。
   - 将 `./tmp/release-notes.md` 用作发布说明。
 9. 作为预防措施，确认发布内容中不包含应保密的信息。
-10. 使用命令 `gh release create {new_version_with_v_prefix} --title {new_version_with_v_prefix} --notes-file ./tmp/release-notes.md ...` 在 `github.com/classmethod/tsumiki` 仓库中将标题和标签都设置为 new_version_with_v_prefix，并使用步骤 4 的内容作为说明来创建发布。
+10. 使用命令 `gh release create {new_version_with_v_prefix} --title {new_version_with_v_prefix} --notes-file ./tmp/release-notes.md ...` 在 `github.com/tetrisKun/jimu` 仓库中将标题和标签都设置为 new_version_with_v_prefix，并使用步骤 4 的内容作为说明来创建发布。
 11. 返回到 main 分支。
